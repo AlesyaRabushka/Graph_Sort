@@ -36,6 +36,7 @@ public:
 	//добавление элемента
 	void add_element(value_type val) {
 		
+
 		if (matrix.empty()) {
 			
 			count++;
@@ -43,7 +44,9 @@ public:
 			for (int i = 0; i < count; i++) {
 				matrix[i].resize(count);
 				for (int j = 0; j < count; j++) {
-					matrix[i][j] = 0;
+					if (j == count - 1) {
+						matrix[i][j] = 0;
+					}
 				}
 			}
 			Element* e = new Element(val);
@@ -53,18 +56,26 @@ public:
 			
 		}
 		else {
+			vector<vector<T>> new_m;
 			count++;
-			matrix.resize(count);
-			for (int i = 0; i < count; i++) {
-				matrix[i].resize(count);
+			new_m.resize(count);
+			for (int i = 0; i < count - 1; i++) {
+				new_m[i].resize(count);
+				for (int j = 0; j < count - 1; j++) {
+					new_m[i][j] = matrix[i][j];
+				}
+			}
+			for (int i = count - 1; i < count; i++) {
+				new_m[i].resize(count);
 				for (int j = 0; j < count; j++) {
-					matrix[i][j] = 0;
+					new_m[i][j] = 0;
 				}
 			}
 			Element* e = new Element(val);
 			e->key = count - 1;
 			(current)->next = e;
 			(current) = e;
+			matrix = new_m;
 		}
 	}
 
@@ -97,7 +108,7 @@ public:
 		}
 	}
 
-	//удаление элемента
+	//удаление элемента вот здеь вопросы!?!??
 	void remove_element(value_type val) {
 		Element* p = first;
 		Element* q = first;
