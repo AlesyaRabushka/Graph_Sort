@@ -17,11 +17,11 @@ public:
 		Element(value_type val) : key(0), data(val), next(nullptr) {}
 	};
 
-	//количесвто элементов
+	//РєРѕР»РёС‡РµСЃРІС‚Рѕ СЌР»РµРјРµРЅС‚РѕРІ
 	size_t count;
-	//матрица связей между ребрами
+	//РјР°С‚СЂРёС†Р° СЃРІСЏР·РµР№ РјРµР¶РґСѓ СЂРµР±СЂР°РјРё
 	vector<vector<int>> matrix;
-	//указатели на элементы
+	//СѓРєР°Р·Р°С‚РµР»Рё РЅР° СЌР»РµРјРµРЅС‚С‹
 	Element* current, *first;
 
 	graph() {
@@ -33,7 +33,7 @@ public:
 	}
 	
 
-	//добавление элемента
+	//РґРѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р°
 	void add_element(value_type val) {
 		
 		if (matrix.empty()) {
@@ -68,7 +68,7 @@ public:
 		}
 	}
 
-	//добавление дуги
+	//РґРѕР±Р°РІР»РµРЅРёРµ РґСѓРіРё
 	void add_edge(value_type a, value_type b) {
 		Element* el_a = find(a);
 		Element* el_b = find(b);
@@ -83,7 +83,7 @@ public:
 		}
 	}
 
-	//удаление ребра
+	//СѓРґР°Р»РµРЅРёРµ СЂРµР±СЂР°
 	void remove_edge(value_type a, value_type b) {
 		Element* el_a = find(a);
 		Element* el_b = find(b);
@@ -97,7 +97,7 @@ public:
 		}
 	}
 
-	//удаление элемента
+	//СѓРґР°Р»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р°
 	void remove_element(value_type val) {
 		Element* p = first;
 		Element* q = first;
@@ -117,7 +117,7 @@ public:
 		}
 
 		
-		//изменить матрицу нададаададад
+		//РёР·РјРµРЅРёС‚СЊ РјР°С‚СЂРёС†Сѓ РЅР°РґР°РґР°Р°РґР°РґР°Рґ
 		vector<vector<int>> new_m;
 		
 		cout << "--" << s->key << endl;
@@ -178,14 +178,14 @@ public:
 
 	
 
-	//возвращает нужный элемент
+	//РІРѕР·РІСЂР°С‰Р°РµС‚ РЅСѓР¶РЅС‹Р№ СЌР»РµРјРµРЅС‚
 	Element* find(value_type val) {
 		Element* p = first;
 		while (p && p->data != val) p = p->next;
 		return (p && p->data == val) ? p : nullptr;
 	}
 
-	//вывод data 
+	//РІС‹РІРѕРґ data 
 	void print_element() {
 		Element* q = first;
 		while (q) {
@@ -195,7 +195,7 @@ public:
 		cout << endl;
 	}
 
-	//вывод на экран матрицы
+	//РІС‹РІРѕРґ РЅР° СЌРєСЂР°РЅ РјР°С‚СЂРёС†С‹
 	void print() {
 		cout << count << endl;
 		for (int i = 0; i < count; i++) {
