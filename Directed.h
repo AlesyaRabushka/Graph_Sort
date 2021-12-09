@@ -39,6 +39,90 @@ public:
 	}
 
 
+	//возвращает количество вершин
+	size_t get_vertexes() {
+		return count;
+	}
+
+	//возвращает количество ребер
+	int get_arcs() {
+		int amount = 0;
+		for (size_t i = 0; i < count; i++)
+		{
+			for (size_t j = 0; j < count; j++)
+			{
+				if (matrix[i][j] == 1)
+					amount++;
+			}
+
+		}
+		return amount;
+	}
+
+	//проверка принадлежности вершины графу
+	void find_vertex(T val) {
+		Element* p = find(val);
+		if (p)
+			cout << "Vertex " << val << " belongs to the matrix" << endl;
+		else
+			cout << "Vertex doesn't belong to the matrix" << endl;
+	}
+
+	//проверка наличия ребра
+	void find_edge(T a, T b) {
+		Element* el_a = find(a);
+		Element* el_b = find(b);
+		int k = 0;
+
+		for (int i = 0; i < count; i++) {
+			for (int j = 0; j < count; j++) {
+				if ((i == el_a->key) && (j == el_b->key) && matrix[i][j] == 1) {
+					cout << "Edge between " << a << " and " << b << " belongs to the matrix" << endl;
+					k++;
+				}
+			}
+		}
+		if (k == 0)
+			cout << "Edge doesn't belong to the matrix" << endl;
+	}
+
+	//вычисление степени вершины
+	int vertex_degree(T val) {
+		int degree = 0;
+		Element* p = find(val);
+
+		int x = p->key;
+
+		for (size_t i = 0; i < count; i++)
+		{
+			if (matrix[x][i] == 1)
+				degree++;
+		}
+
+		for (size_t i = 0; i < count; i++)
+		{
+			if (matrix[i][x] == 1)
+				degree++;
+		}
+		return degree;
+	}
+
+	//степень ребра
+	int edge_degree(T a, T b) {
+		int degree = 0;
+		Element* p1 = find(a);
+		Element* p2 = find(b);
+		int x = p1->key;
+		int y = p2->key;
+
+		if (matrix[x][y] == 1)
+			degree++;
+		if (matrix[y][x] == 1)
+			degree++;
+
+		return degree;
+	}
+
 	//добавление элемента
 	void add_element(T val) {
 
