@@ -7,22 +7,23 @@ using namespace std;
 template <class T>
 class graph {
 public:
-	typedef T value_type;
 	struct Element {
-		
+
 		int key;
-		value_type data;
+		T data;
 		Element* next;
 
-		Element(value_type val) : key(0), data(val), next(nullptr) {}
+		Element(T val) : key(0), data(val), next(nullptr) {}
 	};
 
-	//количесвто элементов
+	//количество элементов
 	size_t count;
+
 	//матрица связей между ребрами
 	vector<vector<int>> matrix;
+
 	//указатели на элементы
-	Element* current, *first;
+	Element* current, * first;
 
 	graph() {
 		count = 0;
@@ -31,14 +32,14 @@ public:
 	~graph() {
 		matrix.clear();
 	}
-	
+
 
 	//добавление элемента
-	void add_element(value_type val) {
-		
+	void add_element(T val) {
+
 
 		if (matrix.empty()) {
-			
+
 			count++;
 			matrix.resize(count);
 			for (int i = 0; i < count; i++) {
@@ -53,7 +54,7 @@ public:
 			e->key = 0;
 			first = e;
 			current = e;
-			
+
 		}
 		else {
 			vector<vector<T>> new_m;
@@ -80,22 +81,22 @@ public:
 	}
 
 	//добавление дуги
-	void add_edge(value_type a, value_type b) {
+	void add_edge(T a, T b) {
 		Element* el_a = find(a);
 		Element* el_b = find(b);
-		
+
 		for (int i = 0; i < count; i++) {
 			for (int j = 0; j < count; j++) {
 				if ((i == el_a->key) && (j == el_b->key)) {
 					int num = matrix[i][j];
-					matrix[i][j] = num+1;
+					matrix[i][j] = num + 1;
 				}
 			}
 		}
 	}
 
 	//удаление ребра
-	void remove_edge(value_type a, value_type b) {
+	void remove_edge(T a, T b) {
 		Element* el_a = find(a);
 		Element* el_b = find(b);
 
@@ -108,8 +109,8 @@ public:
 		}
 	}
 
-	//удаление элемента вот здеь вопросы!?!??
-	void remove_element(value_type val) {
+	//удаление элемента
+	void remove_element(T val) {
 		Element* p = first;
 		Element* q = first;
 		Element* s = first;
@@ -118,7 +119,7 @@ public:
 			if (p->data == val) {
 				s = p;
 				q->next = p->next;
-				
+
 				break;
 			}
 			else {
@@ -127,70 +128,21 @@ public:
 			}
 		}
 
-		
-		//изменить матрицу нададаададад
-		vector<vector<int>> new_m;
-		
-		cout << "--" << s->key << endl;
+
 		auto num = s->key;
-		/*new_m.resize(count);
 
-		for (int i = 0; i < count; i++) {
-			new_m[i].resize(count);
-			if (i == s->key) {
-				i++;
-				for (int j = 0; j < count; j++) {
-					new_m[i][j] = matrix[i+1][j];
-				}
-			}
-			else {
-				for (int j = 0; j < count; j++) {
-					new_m[i][j] = matrix[i][j];
-				}
-			}
-		}
-		count--;
-		new_m.erase(s->key);
-		
-		matrix = new_m;*/
-		
-		for (int i = 0; i < count; i++) {
-			matrix[i].resize(count);
-			if (i == num) {
-				for (int j = 0; j < count; j++) {
-					matrix[i][j] = -1;
-				}
-			}
-		}
+		for (size_t i = 0; i < matrix.size(); i++)
+			matrix[i].erase(matrix[i].begin()+num);
+		matrix.erase(matrix.begin()+num);
 
-		for (int i = 0; i < count; i++) {
-			matrix[i].resize(count);
-			for (int j = 0; j < count; j++) {
-				if (j == num) {
-					matrix[i][j] = -1;
-				}
-			}
-		}
+		count = matrix.size();
 
-		/*auto iter = matrix.begin();
-		matrix.erase(iter + num);
-		for (int i = 0; i < count; i++) {
-			matrix.resize(count);
-			
-			for (int j = 0; j < count; j++) {
-				if (j == num) {
-					auto iter1 = matrix[i].begin();
-					matrix[i][j] == 0;
-				}
-			}
-		}*/
-		//count--;
 	}
 
-	
+
 
 	//возвращает нужный элемент
-	Element* find(value_type val) {
+	Element* find(T val) {
 		Element* p = first;
 		while (p && p->data != val) p = p->next;
 		return (p && p->data == val) ? p : nullptr;
