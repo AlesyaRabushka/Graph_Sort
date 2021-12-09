@@ -25,10 +25,15 @@ public:
 	//указатели на элементы
 	Element* current, * first;
 
+	// конструктор по умолчанию
 	graph() {
 		count = 0;
 	}
 
+	//конструктор копирования
+	graph(const graph& g) : count(g.count) , matrix(g.matrix) {}
+
+	//деструктор
 	~graph() {
 		matrix.clear();
 	}
@@ -132,8 +137,8 @@ public:
 		auto num = s->key;
 
 		for (size_t i = 0; i < matrix.size(); i++)
-			matrix[i].erase(matrix[i].begin()+num);
-		matrix.erase(matrix.begin()+num);
+			matrix[i].erase(matrix[i].begin() + num);
+		matrix.erase(matrix.begin() + num);
 
 		count = matrix.size();
 
@@ -147,6 +152,7 @@ public:
 		while (p && p->data != val) p = p->next;
 		return (p && p->data == val) ? p : nullptr;
 	}
+
 
 	//вывод data 
 	void print_element() {
@@ -168,4 +174,25 @@ public:
 			cout << endl;
 		}
 	}
+
+
+	//-------------
+
+	//оператор присваивания
+	graph& operator= (const graph& g) {
+		count = g.count;
+		matrix = g.matrix;
+		return *this;
+	}
+
+	//оператор сравнения
+	friend bool operator == (graph g1, graph g2) {
+		return (g1.count == g2.count && g1.matrix == g2.matrix);
+	}
+	
+	//оператор неравенства
+	friend bool operator!= (const graph& g1, const graph& g2) {
+		return !(g1 == g2);
+	}
 };
+
