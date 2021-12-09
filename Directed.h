@@ -7,10 +7,11 @@ using namespace std;
 template <class T>
 class graph {
 public:
+	typedef T value_type;
 	struct Element {
-
+		
 		int key;
-		T data;
+		value_type data;
 		Element* next;
 
 		Element(T val) : key(0), data(val), next(nullptr) {}
@@ -60,7 +61,7 @@ public:
 	}
 
 	//проверка принадлежности вершины графу
-	void find_vertex(T val) {
+	void find_vertex(value_type val) {
 		Element* p = find(val);
 		if (p)
 			cout << "Vertex " << val << " belongs to the matrix" << endl;
@@ -69,7 +70,7 @@ public:
 	}
 
 	//проверка наличия ребра
-	void find_edge(T a, T b) {
+	void find_edge(value_type a, value_type b) {
 		Element* el_a = find(a);
 		Element* el_b = find(b);
 		int k = 0;
@@ -87,7 +88,7 @@ public:
 	}
 
 	//вычисление степени вершины
-	int vertex_degree(T val) {
+	int vertex_degree(value_type val) {
 		int degree = 0;
 		Element* p = find(val);
 
@@ -124,7 +125,7 @@ public:
 	}
 
 	//добавление элемента
-	void add_element(T val) {
+	void add_element(value_type val) {
 
 
 		if (matrix.empty()) {
@@ -170,7 +171,7 @@ public:
 	}
 
 	//добавление дуги
-	void add_edge(T a, T b) {
+	void add_edge(value_type a, value_type b) {
 		Element* el_a = find(a);
 		Element* el_b = find(b);
 
@@ -185,7 +186,7 @@ public:
 	}
 
 	//удаление ребра
-	void remove_edge(T a, T b) {
+	void remove_edge(value_type a, value_type b) {
 		Element* el_a = find(a);
 		Element* el_b = find(b);
 
@@ -199,7 +200,7 @@ public:
 	}
 
 	//удаление элемента
-	void remove_element(T val) {
+	void remove_element(value_type val) {
 		Element* p = first;
 		Element* q = first;
 		Element* s = first;
@@ -231,7 +232,7 @@ public:
 
 
 	//возвращает нужный элемент
-	Element* find(T val) {
+	Element* find(value_type val) {
 		Element* p = first;
 		while (p && p->data != val) p = p->next;
 		return (p && p->data == val) ? p : nullptr;
@@ -274,9 +275,25 @@ public:
 		return (g1.count == g2.count && g1.matrix == g2.matrix);
 	}
 	
-	//оператор неравенства
+	//операторы неравенства
 	friend bool operator!= (const graph& g1, const graph& g2) {
 		return !(g1 == g2);
+	}
+	
+	friend bool operator > (const graph& g1, const graph& g2) {
+		return (g1.count > g2.count);
+	}
+
+	friend bool operator < (const graph g1, const graph g2) {
+		return (g1.count < g2.count);
+	}
+
+	friend bool operator >= (const graph g1, const graph g2) {
+		return (g1.count >= g2.count);
+	}
+
+	friend bool operator <= (const graph g1, const graph g2) {
+		return (g1.count <= g2.count);
 	}
 };
 
