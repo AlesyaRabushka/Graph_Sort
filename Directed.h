@@ -186,7 +186,7 @@ public:
 	}
 
 	//оператор сравнения
-	friend bool operator == (graph g1, graph g2) {
+	friend bool operator == (const graph g1, const graph g2) {
 		return (g1.count == g2.count && g1.matrix == g2.matrix);
 	}
 	
