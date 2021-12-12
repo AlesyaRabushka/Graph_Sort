@@ -1,6 +1,10 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <iterator>
+#include <algorithm> 
+
+#include "Iterator.h"
 
 using namespace std;
 
@@ -8,15 +12,15 @@ template <class T>
 class graph {
 public:
 	typedef T value_type;
+	
 	struct Element {
-		
 		int key;
 		value_type data;
 		Element* next;
 
 		Element(T val) : key(0), data(val), next(nullptr) {}
 	};
-
+	
 	//количество элементов
 	size_t count;
 
@@ -230,7 +234,6 @@ public:
 	}
 
 
-
 	//возвращает нужный элемент
 	Element* find(value_type val) {
 		Element* p = first;
@@ -261,8 +264,10 @@ public:
 	}
 
 
-	//-------------
 
+
+
+	//---------------------------
 	//оператор присваивания
 	graph& operator= (const graph& g) {
 		count = g.count;
@@ -294,6 +299,13 @@ public:
 
 	friend bool operator <= (const graph g1, const graph g2) {
 		return (g1.count <= g2.count);
+	}
+
+
+	//перегрузка вывода матрицы на экран
+	friend ostream& operator << (ostream& os, const graph& g) {
+		for_each(g.matrix.begin(), g.matrix.end(), [&os](const vector<T>& vec) {copy(vec.begin(), vec.end(), ostream_iterator<T>(os, " ")); std::cout << '\n'; });
+		return os;
 	}
 };
 
