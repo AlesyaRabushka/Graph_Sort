@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include "Undirected.h"
 #include "Directed.h"
 
@@ -6,25 +6,27 @@ using namespace std;
 
 
 int main() {
+	setlocale(LC_ALL, "rus");
+
 
 	graph<int> g;
 	
-	g.add_element(8);
-	g.add_element(7);
-	g.add_element(6);
+	g.add_element(1);
 	g.add_element(2);
+	g.add_element(3);
+	g.add_element(4);
 	
-	g.add_edge(7, 6);
-	g.add_edge(8, 6);
-	g.add_edge(8, 6);
-	g.add_edge(2, 7);
-	g.print();
-	g.remove_edge(7, 6);
-	g.remove_element(7);
-	cout << "Matrix: " << endl;
-	g.print();
-	cout << "Elements: ";
-	g.print_element();
-
+	g.add_edge(1, 2);
+	g.add_edge(3, 4);
+	
+	graph<int> g1;
+	g1.add_element(9);
+	
+	g1 = g;
+	
+	if (g != g1) cout << "no" << endl;
+	else cout << "yes" << endl;
+	
+	cout << g;
 	return 0;
 }
